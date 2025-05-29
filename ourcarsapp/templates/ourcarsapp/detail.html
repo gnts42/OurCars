@@ -1,0 +1,113 @@
+{% extends 'ourcarsapp/base.html' %}
+
+{% block title %}{{ cars }}{% endblock %}
+{% block cars_active %}active{% endblock %}
+{% block body %}
+
+<style>
+    h1.True{color: green;}
+    h1.False{color: grey;}
+    h2.True{color: green;}
+    h2.False{color: grey;}
+</style>
+
+<div class="container-fluid cars-container">
+    <div id="big_wrapper">
+    <div class="row">
+      <!-- Left Car Info -->
+      <div class="col-sm-3 col-md-3">
+          <div id="my_panel">
+            <div class="panel panel-default">
+                <div class="panel-body"> 
+                    <a href="{% url 'ourcarsapp:detail' cars.id %}">
+                       <img src="{{ cars.cars_logo.url }}" width="{{ 200 }}" height="{{ 200 }}" class="img-responsive">
+                       <p class="{{cars.user}}"> User: {{ cars.user}} </p>
+                       <h2 class="{{cars.current_car}}"> Make: {{ cars.car_make }}</h2>
+					   <h2 class="{{cars.current_car}}"> Model: {{ cars.car_model }}</h2>	
+					   <h3 class="{{cars.current_car}}"> Year: {{cars.year_made}}</h3>
+					   <p>Registration No: {{cars.rego}}</p>
+					   <p>Kms Bought: {{cars.kms_bought}}</p>
+					   <p>Kms Sold: {{cars.kms_sold}}</p>
+					   <p>Year Sold: {{cars.when_sold}}</p>
+					   <p>Nickname: {{cars.nickname}}</p>
+					   <p>Comments: {{cars.comments}}</p>
+				 </div>
+          </div>
+            </div>
+       </div>
+
+        <!-- Extra Photos -->
+        <div class="col-sm-3 col-md-3.5">
+            <div id="my_panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                        <a href="{% url 'ourcarsapp:car_image' cars.id %}" class="btn btn-primary btn-sm" role="button">Add extra photos </a>
+                        <a href="{% url 'ourcarsapp:big_photos' cars.id %}" class="btn btn-primary btn-sm" role="button">Big photos </a>
+                    </ul>
+                    {% for cimage_no in cars.carsimage_set.all %}
+                      <p><img src="{{ cimage_no.cimage.url }}" width="{{ 400 }}" height="{{ 400 }}" class="img-responsive"><p>
+                      <p><a href="{% url 'ourcarsapp:carsphoto-update' cimage_no.id %}" class="btn btn-primary btn-sm" role="button">Change Photo</a></p>
+                    {% endfor %}
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Servicing info -->
+             
+        <div class="col-sm-3 col-md-6">
+            <div id="my_panel">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                        <a href="{% url 'ourcarsapp:service_form' cars.id %}" target="_blank" class="btn btn-primary btn-sm" role="button">Add New Service Record </a>
+                    </ul>
+                    <table class="table">
+
+                        <thead>
+	                        <tr>
+	                            <th style="text-align: center" width="100px">Svc Due</th>
+	                            <th style="text-align: center" width="100px">By</th>
+	                            <th>Website</th>
+	                            <th>Phone</th>
+	                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for service in cars.service_set.all %}
+                            <tr>
+                                <td>{{ service.next_serv  | date:"d/m/Y"}}</td>
+                                <td>{{ service.serv_by }}</td>
+                                <td> <a href={{ service.serv_url }}title="Link to Service Website"> {{ service.serv_url }}</a></td>
+                                <td>{{ service.serv_phone }}</td>
+                                        <th><form action="{% url 'ourcarsapp:service_delete' cars.id service.id %}" method="post" style="display: inline;"></th>
+                                        <input type="hidden" name="service_id" value="{{ service.id }}" />
+                                         <td>{% csrf_token %}
+                                         	<button type="submit" class="btn btn-danger btn-xs">
+                                            	<span class="glyphicon glyphicon-trash"></span>
+                                            </button></td>
+                                    	</form>
+                      		</tr>
+                         {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+   
+      </div>
+    </div>
+    <footer id="the_footer">
+					Copyright GNT Systems 2017-2022
+    </footer>
+ </div>
+
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'ourcarsapp/base.html' %}
+{% block title %}Add a New Car{% endblock %}
+{% block cars_active %}active{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div id="big_wrapper">
+       <div class="row">
+            <div class="col-sm-12 col-md-7">
+              <div id="my_panel">
+                <div class="panel panel-left">
+                    <div class="panel-body">
+                        <h3>Add or Change a Car Record</h3>
+                        {% if error_message %}
+                            <p><strong>{{ error_message }}</strong></p>
+                        {% endif %}
+                        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% include 'ourcarsapp/form_template.html' %}
+                            <div class="form-group">
+                                <div class="col-sm-offset-1 col-sm-8">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-10 col-md-5">
+               <div id="my_panel">
+                <div class="panel panel-right">
+                    <div class="panel-body">
+                        <h3>What is Our Cars App?</h3>
+                        <p>Our Cars is an app that allows you to upload and store details of the cars you own or have owned on the cloud.</p>
+                        <h3>How do I add cars?</h3>
+                        <p>Just create a new car record by filling out the form on this page.</p>
+                        <h3>What are some Car Photos best practices?</h3>
+                        <ul>
+                            <li>Have a resolution of 512x512</li>
+                            <li>Use common image formats such as .JPG, .GIF, or .PNG</li>
+                            <li>Remain under the 2MB limit.</li>
+                            <li>Square images look best</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>
+    <footer id="the_footer">
+					Copyright GNT Systems 2017-2024
+    </footer>
+    </div>
+</div>
+{% endblock %}

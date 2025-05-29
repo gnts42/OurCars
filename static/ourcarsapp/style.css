@@ -1,0 +1,32 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+
+#top_header{
+	background:yellow;
+	border: 1px solid blue;
+	padding: 20px;
+}
+
+
+
+ul.errorlist {
+    padding-left: 0;
+}
+ul.errorlist > li {
+    list-style: none;
+}
+.navbar {
+    border-radius: 0;
+}
+.navbar-brand {
+    font-family: 'Satisfy', cursive;
+}
+.glyphicon-star {
+    color: #CCCCCC;
+    font-size: 16px;
+}
+.glyphicon-star.active {
+    color: #FDB230;
+}

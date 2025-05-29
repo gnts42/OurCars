@@ -1,0 +1,55 @@
+{% extends 'ourcarsapp/base.html' %}
+{% block cars_active %}active{% endblock %}
+      
+{% block body %}
+
+
+ <body style="">
+
+	<div class="cars-container container-fluid">
+	  <div id="big_wrapper">
+		<div class="row">
+		     <div class="col-sm-12">
+		         <h1 style="text-align: left">Welcome to {{ user.username }}'s Cars</h1>
+		     </div>	 	
+	    </div>
+	     <div class="row">
+	      <!-- Left Car Info -->
+	      <div class="col-sm-4 col-md-4">
+			  <div id="my_panel">
+	            <div class="panel panel-default">
+	                <div class="panel-body"> 
+	                	{% load static %}
+						<img src="{% static 'ourcarsapp/images/GN.jpg'%}" />
+					</div>
+				</div>
+			  </div>
+		  </div>
+		 
+	  	<div class="col-sm-8 col-md-8">
+			 <div id="my_panel">
+	            <div class="panel panel-default">
+	                <div class="panel-body">
+	                	<h2>What is the "Our Cars" App?</h2>
+	        			<thead>
+			               <tr> This website allows you to add information about your previous and current cars.</tr>
+			               <tr> You can also add several photos of your car and you can add servicing details.</tr>
+			             </thead>
+
+			             <tr>You can start using the Our Cars App by pressing the "Our Cars" logo at the top left of this page.</tr>
+
+			         </div>
+			     </div>
+			 </div>
+		</div>  
+	  </div>
+          <footer id="the_footer">
+					Copyright GNT Systems 2017-2022
+		</footer>
+	</div>
+
+    
+	</div>
+
+
+{% endblock %} 

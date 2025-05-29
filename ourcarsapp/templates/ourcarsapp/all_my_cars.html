@@ -1,0 +1,67 @@
+{% extends 'ourcarsapp/base.html' %}
+{% block cars_active %}active{% endblock %}
+
+{% block body %}
+
+<div class="cars-container container-fluid">
+	<div id="big_wrapper">
+		<section id="main_section">
+			<div class="row">
+				 <div class="col-sm-12">
+					 <h2 style="text-align: left"><font color="Black">{{ user.username }}'s Cars </font></h2>
+                 </div>
+            </div>
+            <div id="my_table">
+			 <table border="1" >
+				 <thead>
+					<tr>
+						<th style="text-align: center" width="130px">Car Make</th>
+						<th style="text-align: center" width="130px">Model</th>
+						<th style="text-align: center" width="130px">Year Made</th>
+						<th style="text-align: center" width="90px">Current</th>
+						<th width="100px"></th>
+                        <th width="100px"></th>
+						<th width="50px"></th>
+					</tr>
+				 </thead>
+				 	<tr>
+                    {% for cars in cars %}
+						<td>{{ cars.car_make }}</td>
+						<td>{{ cars.car_model }}</td>
+						<td>{{ cars.year_made }}</td>
+						<td>
+          				{% if cars.current_car == True %}
+            				Yes
+						{% else %}
+							No
+          				{% endif %}
+        				</td>
+
+						<td><a href="{% url 'ourcarsapp:detail' cars.id %}" class="btn btn-primary btn-sm" role="button">View Car</a></td>
+						<td><a href="{% url 'ourcarsapp:cars-update' cars.id %}" class="btn btn-primary btn-sm" role="button">Change</a></td>
+						<td><form action="{% url 'ourcarsapp:cars-delete' cars.id %}" method="post" style="display: inline;">
+								{% csrf_token %}
+								   <input type="hidden" name="cars_id" value="{{ cars.id }}" />
+								   <button type="submit" class="btn btn-default btn-sm">
+									   <span class="glyphicon glyphicon-trash"></span>
+								   </button>
+						   </form></td>
+
+					</tr>
+                    {% endfor %}
+				</tbody>
+             </table>
+            </div>
+		</section>
+
+		<aside id="side_news">
+            <h4>Information</h4>
+            This page displays the cars we owned and cared about.
+		</aside>
+		<footer id="the_footer">
+					Copyright GNT Systems 2017-2024
+		</footer>
+	</div>
+</div>
+
+{% endblock %}
